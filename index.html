@@ -2,23 +2,31 @@
 	<head>
 		<title>D3 Test</title>
 		<script type="text/javascript" src="https://d3js.org/d3.v4.min.js"></script>
+		<style type="text/css">
+
+			div.bar {
+				display: inline-block;
+				width: 20px;
+				height: 75px; /* Gets overriden by D3-assigned height below*/
+				background-color: teal;
+			}
+		</style>
 	</head>
 	<body>
 		<script type="text/javascript">
 			var dataset = [5, 10, 15, 20, 25];
 			//d3.select("body").append("p").text("New paragraph!");
-			d3.select("body").selectAll("p")
+			d3.select("body").selectAll("div")
 			.data(dataset)
 			.enter()
-			.append("p")
-			.text(function(d) { return d; })
-			.style("color", function(d) {
-				if (d > 15) { //Threshold of 15
-					return "red";
-				} else {
-					return "black";
-				}
-			});
+			.append("div")
+			.attr("class", "bar")
+			.style("height", function(d) {
+				var barHeight = d * 5; //Scale up by factor of 5.
+				return barHeight + "px";
+				//return d + "px";
+			})
+			.style("margin-right", "12px");
 		</script>
 	</body>
 </html>
